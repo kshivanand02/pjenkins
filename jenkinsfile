@@ -8,33 +8,32 @@ pipeline {
             }
         }
 
-        stage('Compile') {
+        stage('Setup') {
             steps {
-                echo 'Compiling Java program...'
-                // Compile all Java files inside src folder
-                sh 'javac src/*.java'
+                echo 'Setting up Python environment...'
+                // Install dependencies if requirements.txt exists
+                bat 'if exist requirements.txt pip install -r requirements.txt'
             }
         }
 
         stage('Run') {
             steps {
-                echo 'Running Java program...'
-                // Run the main class, including src path
-                sh 'java -cp src Hello'
+                echo 'Running Python program...'
+                bat 'python src\\Hello.py'
             }
         }
 
         stage('Clean Up') {
             steps {
-                echo 'Cleaning up class files...'
-                sh 'rm -f src/*.class'
+                echo 'Cleaning up...'
+                bat 'if exist src\\__pycache__ rmdir /S /Q src\\__pycache__'
             }
         }
     }
 
     post {
         success {
-            echo 'Build and Run Successful!'
+            echo 'Python script ran successfully!'
         }    
         failure {
             echo 'Build Failed!'
