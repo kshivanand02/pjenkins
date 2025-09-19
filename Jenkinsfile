@@ -12,14 +12,14 @@ pipeline {
             steps {
                 echo 'Setting up Python environment...'
                 // Install dependencies if requirements.txt exists
-                bat 'if exist requirements.txt pip install -r requirements.txt'
+                bat '"C:\\Users\\K_Shiva\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe" -m pip install -r requirements.txt || echo No requirements.txt found'
             }
         }
 
         stage('Run') {
             steps {
                 echo 'Running Python program...'
-                bat 'python src\\Hello.py'
+                bat '"C:\\Users\\K_Shiva\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe" src\\Hello.py'
             }
         }
 
